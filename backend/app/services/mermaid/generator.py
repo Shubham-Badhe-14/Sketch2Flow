@@ -20,6 +20,10 @@ class MermaidGenerator:
         label = label.replace('{', '(').replace('}', ')')
         # Replace quotes to avoid string literal breaks
         label = label.replace('"', "'")
+        # Replace newlines with HTML break tags for Mermaid
+        label = label.replace('\n', '<br/>').replace('\r', '')
+        # Replace special chars that might confuse HTML/XML parsers
+        label = label.replace('&', 'and')
         return label
 
     @staticmethod

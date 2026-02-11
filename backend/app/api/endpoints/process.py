@@ -58,7 +58,11 @@ async def run_pipeline(job_id: str):
             from backend.app.services.vision.stub import StubVisionProvider
             vision_provider = StubVisionProvider()
 
-        vision_data = await vision_provider.analyze(image, FLOWCHART_PROMPT)
+        vision_data = await vision_provider.analyze(
+            image, 
+            FLOWCHART_PROMPT,
+            status_callback=lambda status: JOB_STATUS.update({job_id: status})
+        )
 
         # 4. Structure Inference
         logger.info("Step 4: Structure Inference")
